@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+//把你在 schema.prisma 里定义的 model，编译生成一个 类型安全的数据库客户端（Prisma Client）。
+generator client {
+  provider = "prisma-client-js"
+}
+
+//告诉 Prisma：数据库类型（provider）：这里是 SQLite。 2.连接字符串（url）：从环境变量 DATABASE_URL 读取。
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Todo {
+  id        String   @id @default(cuid())
+  title     String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
